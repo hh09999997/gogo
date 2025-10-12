@@ -1,0 +1,70 @@
+{% include 'header.html' %}
+<main>
+  <style>
+    main {
+      background: linear-gradient(180deg, #feca57, #ffcccc);
+      min-height: 100vh;
+      padding: 40px 20px;
+      text-align: center;
+      font-family: "Cairo", sans-serif;
+    }
+    h1 {
+      font-size: 36px;
+      color: #2d3436;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #444;
+      font-size: 18px;
+    }
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .game-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .game-card:hover {
+      transform: translateY(-5px);
+    }
+    .game-card img {
+      width: 100%;
+      border-radius: 15px;
+    }
+    .game-card h3 {
+      color: #ff6b6b;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+  </style>
+
+  <h1>🎲 أهلاً بكم في متجر جو جو للألعاب</h1>
+  <p>استكشف عالم الألعاب الممتع والمليء بالألوان والمرح للأطفال 👧🧒</p>
+
+  <div class="game-grid">
+    <div class="game-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/3143/3143649.png" alt="Puzzle">
+      <h3>لعبة الألغاز</h3>
+    </div>
+    <div class="game-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Car">
+      <h3>سيارات السباق</h3>
+    </div>
+    <div class="game-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" alt="Doll">
+      <h3>دمى الأطفال</h3>
+    </div>
+    <div class="game-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2821/2821637.png" alt="Blocks">
+      <h3>المكعبات الملونة</h3>
+    </div>
+  </div>
+</main>
+
+{% include 'footer.html' %}
