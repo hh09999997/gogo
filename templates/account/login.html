@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول</title>
+  <style>
+    body { font-family: "Cairo", sans-serif; background-color: #fff8e1; text-align: center; }
+    form { background: white; width: 350px; margin: 80px auto; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    input { width: 90%; padding: 10px; margin: 8px 0; border-radius: 6px; border: 1px solid #ccc; }
+    button { background-color: #ff9800; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+    button:hover { background-color: #e68900; }
+    h2 { color: #ff9800; }
+  </style>
+</head>
+<body>
+  <h2>تسجيل الدخول</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="البريد الإلكتروني" required><br>
+    <button type="submit">دخول</button>
+  </form>
+
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</body>
+</html>
