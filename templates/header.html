@@ -1,39 +1,129 @@
-<!-- ================= HEADER ================= -->
+<!-- ====================== 🎮 HEADER ====================== -->
 <header>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap');
+
     header {
-      background: linear-gradient(90deg, #ff9ff3, #feca57, #48dbfb);
+      background: linear-gradient(90deg, #ff9ff3, #feca57, #48dbfb, #1dd1a1);
       padding: 15px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-      border-radius: 0 0 25px 25px;
+      border-radius: 0 0 30px 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       font-family: "Cairo", sans-serif;
+      animation: slideDown 0.8s ease-out;
     }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
     .logo {
-      font-size: 28px;
-      font-weight: 800;
-      color: #fff;
       display: flex;
       align-items: center;
       gap: 10px;
     }
+
     .logo img {
-      width: 40px;
-      height: 40px;
+      width: 55px;
+      height: 55px;
+      animation: bounce 2s infinite ease-in-out;
     }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .logo span {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
     nav a {
       color: #fff;
       text-decoration: none;
       margin: 0 15px;
       font-size: 18px;
-      font-weight: 600;
-      transition: transform 0.3s;
+      font-weight: 700;
+      position: relative;
+      transition: 0.3s;
     }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0%;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 60%;
+    }
+
     nav a:hover {
       transform: scale(1.1);
-      color: #222;
+    }
+
+    /* 🎈 أزرار تسجيل الدخول وإنشاء الحساب */
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .auth-buttons a {
+      text-decoration: none;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-weight: 700;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 15px;
+    }
+
+    .auth-buttons .register {
+      background-color: #ff6b6b;
+      box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4);
+    }
+
+    .auth-buttons .register:hover {
+      background-color: #ee5253;
+      transform: scale(1.05);
+    }
+
+    .auth-buttons .login {
+      background-color: #54a0ff;
+      box-shadow: 0 4px 8px rgba(84, 160, 255, 0.4);
+    }
+
+    .auth-buttons .login:hover {
+      background-color: #2e86de;
+      transform: scale(1.05);
+    }
+
+    /* 🧸 للهواتف */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      nav a {
+        margin: 0 10px;
+      }
     }
   </style>
 
@@ -48,4 +138,9 @@
     <a href="#">🎁 العروض</a>
     <a href="#">📞 تواصل معنا</a>
   </nav>
+
+  <div class="auth-buttons">
+    <a href="{% url 'account:register' %}" class="register">🧩 إنشاء حساب</a>
+    <a href="{% url 'account:login' %}" class="login">🚀 تسجيل دخول</a>
+  </div>
 </header>
