@@ -13,6 +13,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       font-family: "Cairo", sans-serif;
       animation: slideDown 0.8s ease-out;
+      flex-wrap: wrap;
     }
 
     @keyframes slideDown {
@@ -27,8 +28,8 @@
     }
 
     .logo img {
-      width: 55px;
-      height: 55px;
+      width: 50px;
+      height: 50px;
       animation: bounce 2s infinite ease-in-out;
     }
 
@@ -38,33 +39,41 @@
     }
 
     .logo span {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+      white-space: nowrap;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
     }
 
     nav a {
       color: #fff;
       text-decoration: none;
-      margin: 0 15px;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       position: relative;
       transition: 0.3s;
+      padding-bottom: 3px;
     }
 
     nav a::after {
       content: "";
       position: absolute;
-      bottom: -5px;
+      bottom: 0;
       left: 50%;
       transform: translateX(-50%);
       width: 0%;
       height: 3px;
       background-color: #fff;
       border-radius: 3px;
-      transition: 0.3s;
+      transition: width 0.3s ease-in-out;
     }
 
     nav a:hover::after {
@@ -75,10 +84,11 @@
       transform: scale(1.1);
     }
 
-    /* 🎈 أزرار تسجيل الدخول وإنشاء الحساب */
+    /* 🔐 أزرار الدخول والتسجيل */
     .auth-buttons {
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .auth-buttons a {
@@ -114,15 +124,17 @@
       transform: scale(1.05);
     }
 
-    /* 🧸 للهواتف */
-    @media (max-width: 768px) {
+    /* 📱 للهواتف */
+    @media (max-width: 900px) {
       header {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
         text-align: center;
+        border-radius: 0 0 20px 20px;
       }
-      nav a {
-        margin: 0 10px;
+
+      nav {
+        justify-content: center;
       }
     }
   </style>
@@ -133,8 +145,8 @@
   </div>
 
   <nav>
-    <a href="#">🏠 الرئيسية</a>
-    <a href="#">🧸 الألعاب</a>
+    <a href="{% url 'shop:home' %}">🏠 الرئيسية</a>
+    <a href="{% url 'shop:product_list' %}">🧸 الألعاب</a>
     <a href="#">🎁 العروض</a>
     <a href="#">📞 تواصل معنا</a>
   </nav>

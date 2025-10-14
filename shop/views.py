@@ -2,15 +2,14 @@ from django.shortcuts import render
 from .models import Product
 
 
-# 🏠 الصفحة الرئيسية المؤقتة
+# 🏠 الصفحة الرئيسية (تظهر فيها آخر المنتجات)
 def home(request):
-    return render(request, 'home.html')
+    # 🔹 جلب آخر 6 منتجات مضافة
+    latest_products = Product.objects.all().order_by('-created_at')[:6]
+    return render(request, 'home.html', {'latest_products': latest_products})
 
 
-# 🧸 عرض جميع المنتجات في صفحة خاصة
+# 🧸 صفحة عرض كل المنتجات
 def product_list(request):
-    # 🔹 جلب كل المنتجات من قاعدة البيانات
-    products = Product.objects.all()
-
-    # 🔹 تمريرها إلى القالب
+    products = Product.objects.all().order_by('-created_at')
     return render(request, 'shop/products.html', {'products': products})

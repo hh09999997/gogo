@@ -2,94 +2,99 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>🧸 متجر الألعاب | المنتجات</title>
-    <style>
-        body {
-            font-family: "Cairo", sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
+  <meta charset="UTF-8">
+  <title>🧸 جميع الألعاب | متجر جو جو</title>
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+    }
 
-        h1 {
-            color: #ff6f61;
-            margin: 30px 0;
-        }
+    h1 {
+      text-align: center;
+      color: #ff6b6b;
+      margin: 40px 0 20px;
+      font-size: 30px;
+    }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            padding: 20px 50px;
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      padding: 20px 50px 60px;
+    }
 
-        .card {
-            background-color: #fff;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            padding: 15px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+    .card {
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-        }
+    .card:hover {
+      transform: translateY(-5px);
+    }
 
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 15px;
-        }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
 
-        .card h3 {
-            margin: 10px 0 5px;
-            color: #333;
-        }
+    .card h3 {
+      color: #333;
+      margin-top: 10px;
+    }
 
-        .card p {
-            margin: 0;
-            color: #666;
-        }
+    .card p {
+      color: #888;
+      margin: 5px 0;
+    }
 
-        .price {
-            color: #ff6f61;
-            font-weight: bold;
-            margin-top: 8px;
-        }
+    .price {
+      color: #ff6b6b;
+      font-weight: bold;
+      margin-top: 8px;
+    }
 
-        .empty {
-            color: #999;
-            font-size: 18px;
-            margin-top: 40px;
-        }
-    </style>
+    .empty {
+      text-align: center;
+      color: #777;
+      font-size: 18px;
+      margin-top: 50px;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>🧩 قائمة الألعاب المتاحة</h1>
+  {% include 'header.html' %}
 
-    {% if products %}
-        <div class="product-grid">
-            {% for product in products %}
-            <div class="card">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                {% else %}
-                    <img src="{% static 'images/no-image.png' %}" alt="لا توجد صورة">
-                {% endif %}
-                <h3>{{ product.name }}</h3>
-                <p>{{ product.category.name }}</p>
-                <p class="price">{{ product.price }} ر.س</p>
-            </div>
-            {% endfor %}
+  <h1>🎁 جميع الألعاب</h1>
+
+  {% if products %}
+    <div class="grid">
+      {% for product in products %}
+        <div class="card">
+          {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          {% else %}
+            <img src="{% static 'images/no-image.png' %}" alt="لا توجد صورة">
+          {% endif %}
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.category.name }}</p>
+          <p class="price">{{ product.price }} ر.س</p>
         </div>
-    {% else %}
-        <p class="empty">🚫 لا توجد منتجات متاحة حاليًا.</p>
-    {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty">🚫 لا توجد منتجات مضافة بعد.</p>
+  {% endif %}
 
+  {% include 'footer.html' %}
 </body>
 </html>
