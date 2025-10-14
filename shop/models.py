@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from cloudinary.models import CloudinaryField  # ✅ استيراد حقل Cloudinary
 
 
 # 🏷️ نموذج الفئة (تصنيف الألعاب)
@@ -15,9 +16,9 @@ class Category(models.Model):
     )
 
     class Meta:
-        verbose_name = _("فئة")                  # يظهر في لوحة التحكم
-        verbose_name_plural = _("الفئات")        # جمع الاسم في لوحة التحكم
-        ordering = ["name"]                      # ترتيب الفئات أبجديًا
+        verbose_name = _("فئة")
+        verbose_name_plural = _("الفئات")
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -54,12 +55,12 @@ class Product(models.Model):
         default=0
     )
 
-    # 🖼️ صورة المنتج
-    image = models.ImageField(
+    # ☁️ صورة المنتج — مرفوعة مباشرة إلى Cloudinary
+    image = CloudinaryField(
         _("صورة المنتج"),
-        upload_to="products/",
-        blank=True,
+        folder="products/",  # 👈 سيُنشئ مجلد باسم "products" في Cloudinary
         null=True,
+        blank=True,
         help_text=_("حمّل صورة المنتج (اختياري).")
     )
 
@@ -69,9 +70,9 @@ class Product(models.Model):
     )
 
     class Meta:
-        verbose_name = _("منتج")                 # يظهر في لوحة التحكم
-        verbose_name_plural = _("المنتجات")      # جمع الاسم في لوحة التحكم
-        ordering = ["-created_at"]               # الأحدث أولاً
+        verbose_name = _("منتج")
+        verbose_name_plural = _("المنتجات")
+        ordering = ["-created_at"]
 
     def __str__(self):
         return f"{self.name} - {self.category.name}"

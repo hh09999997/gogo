@@ -9,6 +9,15 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+from dotenv import load_dotenv
+
+# ----------------------------------------
+# 📂 تحميل ملف البيئة .env
+# ----------------------------------------
+load_dotenv()
 
 # ----------------------------------------
 # 📂 المسار الأساسي للمشروع
@@ -21,9 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ----------------------------------------
 SECRET_KEY = 'django-insecure-e%$c=9#24l3t59k5pmlgbz*50&*ap362_@u50e1ceb93*pwskz'
 
-# ⚠️ تفعيل وضع التطوير (يجب تعطيله في الإنتاج)
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -39,6 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # ☁️ مكتبة Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
+
     # 🌸 تطبيقات المشروع الخاصة
     'account.apps.AccountConfig',      # إدارة المستخدمين والعملاء
     'shop.apps.ShopConfig',            # المتجر والمنتجات والطلبات
@@ -52,7 +63,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',  # لتفعيل دعم اللغة
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -73,12 +84,7 @@ ROOT_URLCONF = 'gogo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-
-        # 🧭 مسار القوالب العام داخل المشروع
-        'DIRS': [BASE_DIR / 'templates'],
-
-
-
+        'DIRS': [BASE_DIR / 'templates'],  # 🧭 مجلد القوالب العام
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,13 +99,13 @@ TEMPLATES = [
 
 
 # ----------------------------------------
-# 🚀 إعدادات WSGI (نقطة الدخول للتطبيق)
+# 🚀 إعدادات WSGI
 # ----------------------------------------
 WSGI_APPLICATION = 'gogo.wsgi.application'
 
 
 # ----------------------------------------
-# 🗃️ قاعدة البيانات (SQLite مؤقتًا للتطوير)
+# 🗃️ قاعدة البيانات
 # ----------------------------------------
 DATABASES = {
     'default': {
@@ -110,55 +116,54 @@ DATABASES = {
 
 
 # ----------------------------------------
-# 🔑 تحقق كلمات المرور (Password Validation)
+# 🔑 تحقق كلمات المرور
 # ----------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 
 # ----------------------------------------
-# 🌍 الإعدادات الإقليمية (اللغة والتوقيت)
+# 🌍 الإعدادات الإقليمية
 # ----------------------------------------
-LANGUAGE_CODE = 'ar'           # اللغة الافتراضية: العربية
-TIME_ZONE = 'Asia/Riyadh'      # التوقيت المحلي: السعودية
+LANGUAGE_CODE = 'ar'
+TIME_ZONE = 'Asia/Riyadh'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
 
 # ----------------------------------------
-# 🎨 الملفات الثابتة والإعلامية (Static & Media)
+# 🎨 إعدادات الملفات الثابتة (Static)
 # ----------------------------------------
-
-# 🖼️ إعدادات الملفات الثابتة (CSS / JS / Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',           # ملفات التطوير (تُستخدم أثناء البرمجة)
-]
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # ملفات الإنتاج (بعد أمر collectstatic)
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# 📸 إعدادات ملفات الوسائط المرفوعة (من المستخدمين)
+
+# ----------------------------------------
+# ☁️ إعداد Cloudinary لتخزين ملفات الميديا
+# ----------------------------------------
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+# ----------------------------------------
+# 📸 إعدادات الوسائط (MEDIA)
+# ----------------------------------------
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'         # موقع تخزين الصور والملفات المرفوعة
+MEDIA_ROOT = BASE_DIR / 'media'  # فقط مرجعية احتياطية محلية
 
 
 # ----------------------------------------
 # 🧱 الإعداد الافتراضي للمفاتيح الأساسية للنماذج
 # ----------------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
