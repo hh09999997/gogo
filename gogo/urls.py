@@ -46,3 +46,10 @@ if settings.DEBUG:
 admin.site.site_header = "🎠 لوحة إدارة متجر ألعاب الأطفال"
 admin.site.site_title = "إدارة موقع Gogo"
 admin.site.index_title = "مرحبًا بك في لوحة التحكم الإدارية"
+
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -158,3 +158,7 @@ MEDIA_ROOT = BASE_DIR / 'media'         # موقع تخزين الصور وال�
 # 🧱 الإعداد الافتراضي للمفاتيح الأساسية للنماذج
 # ----------------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
