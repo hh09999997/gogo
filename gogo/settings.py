@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-e%$c=9#24l3t59k5pmlgbz*50&*ap362_@u50e1ceb93*pwskz'
 
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gogo-fxbn.onrender.com', 'localhost', '127.0.0.1']
 
 
 # ----------------------------------------
