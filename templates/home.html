@@ -241,6 +241,23 @@ footer {
 </style>
 
 </head>
+<header>
+  <h1>🎮 متجر جو للألعاب</h1>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <nav id="navbar">
+    <a href="#">🏠 الرئيسية</a>
+    <a href="#">🧸 الألعاب</a>
+    <a href="#">🎁 العروض</a>
+    <a href="#">📞 تواصل معنا</a>
+  </nav>
+</header>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navbar').classList.toggle('show');
+}
+</script>
+
 <body>
 
   {% include 'header.html' %}
